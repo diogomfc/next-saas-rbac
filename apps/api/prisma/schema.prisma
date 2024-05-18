@@ -1,0 +1,147 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String?
+  passwordHash String   @map("password_hash")
+  avatarUrl    String   @map("avatar_url")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  tokens            Token[]
+  accounts          Account[]
+  invates           Invate[]
+  member_on         Member[]
+  owns_rganizations Organization[]
+  owns_projects     Project[]
+
+  @@map("users")
+}
+
+enum TokenType {
+  CONFIRM_EMAIL
+  PASSWORD_RECOVER
+}
+
+// model para reset de senha
+model Token {
+  id        String    @id @default(uuid())
+  tokenType TokenType
+  createdAt DateTime  @default(now()) @map("created_at")
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String    @map("user_id")
+
+  @@map("tokens")
+}
+
+enum AccountProvider {
+  GITHUB
+  GOOGLE
+  EMAIL
+}
+
+// model meios de authentication (git, google, etc)
+model Account {
+  id                String          @id @default(uuid())
+  provider          AccountProvider
+  providerAccountId String          @map("provider_account_id")
+  user              User            @relation(fields: [userId], references: [id])
+  userId            String          @map("user_id")
+
+  // Restrição exclusiva para garantir uma conta por usuário por provedor
+  @@unique([provider, userId])
+  @@map("accounts")
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+  BELLING
+}
+
+model Invate {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  email     String
+
+  author User?   @relation(fields: [userId], references: [id])
+  userId String? @map("user_id")
+
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId String       @map("organization_id")
+
+  // Restrição exclusiva para garantir um convite por usuário com o mesmo email por organização
+  @@unique([email, organizationId])
+  // index para garantir a busca mais rápida de convites por email
+  @@index([email])
+  @@map("invates")
+}
+
+model Member {
+  id   String @id @default(uuid())
+  role Role   @default(MEMBER)
+
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId String       @map("organization_id")
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+
+  // Restrição exclusiva para garantir um membro(usuário) por organização
+  @@unique([organizationId, userId])
+  @@map("members")
+}
+
+model Organization {
+  id                        String   @id @default(uuid())
+  name                      String
+  slug                      String   @unique
+  domain                    String?  @unique
+  // se deve vincular o usuários automaticamente por domínio de email
+  shouldAttachUsersByDomain Boolean  @default(false) @map("should_attach_users_by_domain")
+  avatarUrl                 String?  @map("avatar_url")
+  createdAt                 DateTime @default(now()) @map("created_at")
+  updatedAt                 DateTime @updatedAt @map("updated_at")
+
+  owner  User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+
+  invates  Invate[]
+  members  Member[]
+  projetcs Project[]
+
+  @@map("organizations")
+}
+
+model Project {
+  id String @id @default(uuid())
+
+  name        String
+  description String?
+  slug        String   @unique
+  avatarUrl   String?  @map("avatar_url")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId String       @map("organization_id")
+
+  owner  User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id")
+
+  @@map("projects")
+}
