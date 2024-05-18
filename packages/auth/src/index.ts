@@ -14,6 +14,10 @@ import { organizationSchemaSubject } from './subjects/organization'
 import { projectSchemaSubject } from './subjects/project'
 import { userSchemaSubject } from './subjects/user'
 
+export * from './models/organization'
+export * from './models/project'
+export * from './models/user'
+
 export const appAbilitiesSchema = z.union([
   userSchemaSubject,
   projectSchemaSubject,
