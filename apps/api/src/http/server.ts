@@ -1,4 +1,5 @@
 import { fastifyCors } from '@fastify/cors'
+import fastifyJwt from '@fastify/jwt'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUi from '@fastify/swagger-ui'
 import { fastify, FastifyError } from 'fastify'
@@ -9,6 +10,7 @@ import {
   ZodTypeProvider,
 } from 'fastify-type-provider-zod'
 
+import { AuthenticateWithPasswordRoute } from './routes/auth/authenticate-with-password'
 import { CreateAccountRoute } from './routes/auth/create-account'
 
 // Inicialização do servidor com Fastify e TypeProvider
@@ -34,6 +36,11 @@ app.register(fastifySwaggerUi, {
   routePrefix: '/docs',
 })
 
+// JWT
+app.register(fastifyJwt, {
+  secret: 'my-jwt-secret', // process.env.JWT_SECRET
+})
+
 // Cors
 app.register(fastifyCors, {
   origin: '*',
@@ -41,6 +48,7 @@ app.register(fastifyCors, {
 
 // Rotas
 app.register(CreateAccountRoute)
+app.register(AuthenticateWithPasswordRoute)
 
 // Tratativa de erros
 app.setErrorHandler((error: FastifyError, request, reply) => {
