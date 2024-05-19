@@ -11,11 +11,14 @@ import {
 
 import { CreateAccountRoute } from './routes/auth/create-account'
 
+// Inicialização do servidor com Fastify e TypeProvider
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
+// Configuração do TypeProvider
 app.setSerializerCompiler(serializerCompiler)
 app.setValidatorCompiler(validatorCompiler)
 
+// Documentação com Swagger
 app.register(fastifySwagger, {
   openapi: {
     info: {
@@ -27,16 +30,16 @@ app.register(fastifySwagger, {
   },
   transform: jsonSchemaTransform,
 })
-
 app.register(fastifySwaggerUi, {
   routePrefix: '/docs',
 })
 
+// Cors
 app.register(fastifyCors, {
   origin: '*',
 })
 
-// ROUTES
+// Rotas
 app.register(CreateAccountRoute)
 
 // Tratativa de erros
