@@ -70,7 +70,7 @@ model Account {
 enum Role {
   ADMIN
   MEMBER
-  BELLING
+  BILLING
 }
 
 model Invate {
@@ -117,12 +117,12 @@ model Organization {
   createdAt                 DateTime @default(now()) @map("created_at")
   updatedAt                 DateTime @updatedAt @map("updated_at")
 
-  owner  User   @relation(fields: [userId], references: [id])
-  userId String @map("user_id")
+  owner   User   @relation(fields: [ownerId], references: [id])
+  ownerId String @map("owner_id")
 
   invates  Invate[]
   members  Member[]
-  projetcs Project[]
+  projects Project[]
 
   @@map("organizations")
 }
@@ -140,8 +140,8 @@ model Project {
   organization   Organization @relation(fields: [organizationId], references: [id])
   organizationId String       @map("organization_id")
 
-  owner  User   @relation(fields: [userId], references: [id])
-  userId String @map("user_id")
+  owner   User   @relation(fields: [ownerId], references: [id])
+  ownerId String @map("owner_id")
 
   @@map("projects")
 }
