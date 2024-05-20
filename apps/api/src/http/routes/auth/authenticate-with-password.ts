@@ -12,10 +12,20 @@ export async function AuthenticateWithPasswordRoute(app: FastifyInstance) {
       schema: {
         tags: ['auth'],
         summary: 'Authenticate with e-mail & password',
+        description:
+          'Authenticate with e-mail & password. If the user does not have a password, use the social login routes.',
         body: z.object({
           email: z.string().email(),
           password: z.string().min(6),
         }),
+        response: {
+          201: z.object({
+            token: z.string(),
+          }),
+          400: z.object({
+            message: z.string(),
+          }),
+        },
       },
     },
     async (request, reply) => {

@@ -12,6 +12,7 @@ import {
 
 import { AuthenticateWithPasswordRoute } from './routes/auth/authenticate-with-password'
 import { CreateAccountRoute } from './routes/auth/create-account'
+import { GetProfileRoute } from './routes/auth/get-profile'
 
 // Inicialização do servidor com Fastify e TypeProvider
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
@@ -49,6 +50,7 @@ app.register(fastifyCors, {
 // Rotas
 app.register(CreateAccountRoute)
 app.register(AuthenticateWithPasswordRoute)
+app.register(GetProfileRoute)
 
 // Tratativa de erros
 app.setErrorHandler((error: FastifyError, request, reply) => {
