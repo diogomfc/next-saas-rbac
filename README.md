@@ -28,7 +28,7 @@ Este projeto utiliza um monorepo para manter o back-end e o front-end juntos. O 
 - [ ] Deve ser capaz de autenticar usando e-mail e senha;
 - [ ] Deve ser capaz de autenticar usando uma conta do Github;
 - [ ] Deve ser capaz de recuperar a senha usando e-mail;
-- [ ] Deve ser capaz de criar uma conta (e-mail, nome e senha);
+- [x] Deve ser capaz de criar uma conta (e-mail, nome e senha);
 
 ### Organizações
 
