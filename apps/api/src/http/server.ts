@@ -11,6 +11,8 @@ import {
 } from 'fastify-type-provider-zod'
 
 import { errorHandler } from '@/http/error-handler'
+import { requestPasswordRecover } from '@/http/routes/auth/request-password-recover'
+import { resetPassword } from '@/http/routes/auth/reset-password'
 
 import { AuthenticateWithPasswordRoute } from './routes/auth/authenticate-with-password'
 import { CreateAccountRoute } from './routes/auth/create-account'
@@ -53,7 +55,8 @@ app.register(fastifyCors, {
 app.register(CreateAccountRoute)
 app.register(AuthenticateWithPasswordRoute)
 app.register(GetProfileRoute)
-
+app.register(requestPasswordRecover)
+app.register(resetPassword)
 // Tratativa de erros
 // app.setErrorHandler((error: FastifyError, request, reply) => {
 //   reply.status(400).send({
