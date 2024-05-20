@@ -14,6 +14,7 @@ import { errorHandler } from '@/http/error-handler'
 import { requestPasswordRecover } from '@/http/routes/auth/request-password-recover'
 import { resetPassword } from '@/http/routes/auth/reset-password'
 
+import { authenticateWithGithub } from './routes/auth/authenticate-with-github'
 import { AuthenticateWithPasswordRoute } from './routes/auth/authenticate-with-password'
 import { CreateAccountRoute } from './routes/auth/create-account'
 import { GetProfileRoute } from './routes/auth/get-profile'
@@ -57,6 +58,8 @@ app.register(AuthenticateWithPasswordRoute)
 app.register(GetProfileRoute)
 app.register(requestPasswordRecover)
 app.register(resetPassword)
+app.register(authenticateWithGithub)
+
 // Tratativa de erros
 // app.setErrorHandler((error: FastifyError, request, reply) => {
 //   reply.status(400).send({
