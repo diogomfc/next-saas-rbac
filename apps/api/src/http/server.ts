@@ -2,13 +2,15 @@ import { fastifyCors } from '@fastify/cors'
 import fastifyJwt from '@fastify/jwt'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUi from '@fastify/swagger-ui'
-import { fastify, FastifyError } from 'fastify'
+import { fastify } from 'fastify'
 import {
   jsonSchemaTransform,
   serializerCompiler,
   validatorCompiler,
   ZodTypeProvider,
 } from 'fastify-type-provider-zod'
+
+import { errorHandler } from '@/http/error-handler'
 
 import { AuthenticateWithPasswordRoute } from './routes/auth/authenticate-with-password'
 import { CreateAccountRoute } from './routes/auth/create-account'
@@ -53,11 +55,13 @@ app.register(AuthenticateWithPasswordRoute)
 app.register(GetProfileRoute)
 
 // Tratativa de erros
-app.setErrorHandler((error: FastifyError, request, reply) => {
-  reply.status(400).send({
-    message: JSON.parse(error.message),
-  })
-})
+// app.setErrorHandler((error: FastifyError, request, reply) => {
+//   reply.status(400).send({
+//     message: JSON.parse(error.message),
+//   })
+// })
+
+app.setErrorHandler(errorHandler)
 
 app.listen({ port: 3333 }).then(() => {
   console.log(' 🚀 Server is running on port 3333')

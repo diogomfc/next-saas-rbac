@@ -5,6 +5,9 @@ import z from 'zod'
 
 import { prisma } from '@/lib/prisma'
 
+import { BadRequestError } from '../_errors/bad-request-error'
+import { UnauthorizedError } from '../_errors/unauthorized-error'
+
 export async function AuthenticateWithPasswordRoute(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
     '/sessions/password',
@@ -22,9 +25,9 @@ export async function AuthenticateWithPasswordRoute(app: FastifyInstance) {
           201: z.object({
             token: z.string(),
           }),
-          400: z.object({
-            message: z.string(),
-          }),
+          // 400: z.object({
+          //   message: z.string(),
+          // }),
         },
       },
     },
@@ -38,14 +41,19 @@ export async function AuthenticateWithPasswordRoute(app: FastifyInstance) {
 
       // Se não existir, retorna um erro 400
       if (!userFromEmail) {
-        return reply.status(400).send({ message: 'Invalid credentials.' })
+        throw new UnauthorizedError('Invalid credentials.')
+        // return reply.status(400).send({ message: 'Invalid credentials.' })
       }
 
       // Se o usuário não tiver senha, retorna um erro 400
       if (userFromEmail.passwordHash === null) {
-        return reply
-          .status(400)
-          .send({ message: 'User does not have a password, use social login.' })
+        throw new BadRequestError(
+          'User does not have a password, use social login.',
+        )
+
+        // return reply
+        //   .status(400)
+        //   .send({ message: 'User does not have a password, use social login.' })
       }
 
       // Verifica se a senha informada é válida
@@ -56,7 +64,8 @@ export async function AuthenticateWithPasswordRoute(app: FastifyInstance) {
 
       // Se não for válida, retorna um erro 400
       if (!isPasswordValid) {
-        return reply.status(400).send({ message: 'Invalid credentials.' })
+        throw new UnauthorizedError('Invalid credentials.')
+        // return reply.status(400).send({ message: 'Invalid credentials.' })
       }
 
       const token = await reply.jwtSign(

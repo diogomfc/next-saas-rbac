@@ -5,6 +5,8 @@ import z from 'zod'
 
 import { prisma } from '@/lib/prisma'
 
+import { BadRequestError } from '../_errors/bad-request-error'
+
 export async function CreateAccountRoute(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
     '/users',
@@ -30,7 +32,7 @@ export async function CreateAccountRoute(app: FastifyInstance) {
 
       // Se existir, retorna um erro 400
       if (userWithSameEmail) {
-        return reply.status(400).send({ message: 'Email already in use' })
+        throw new BadRequestError('User with same e-mail already exists.')
       }
 
       // Verifica se o domínio do email é de uma organização que aceita shouldAttachUsersByDomain
