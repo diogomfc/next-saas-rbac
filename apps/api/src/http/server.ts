@@ -16,11 +16,13 @@ import { requestPasswordRecover } from '@/http/routes/auth/request-password-reco
 import { resetPassword } from '@/http/routes/auth/reset-password'
 
 import { authenticateWithGithub } from './routes/auth/authenticate-with-github'
-import { AuthenticateWithPasswordRoute } from './routes/auth/authenticate-with-password'
-import { CreateAccountRoute } from './routes/auth/create-account'
-import { GetProfileRoute } from './routes/auth/get-profile'
+import { authenticateWithPasswordRoute } from './routes/auth/authenticate-with-password'
+import { createAccountRoute } from './routes/auth/create-account'
+import { getProfileRoute } from './routes/auth/get-profile'
 import { createOrganization } from './routes/orgs/create-organization'
 import { getMembership } from './routes/orgs/get-membership'
+import { getOrganization } from './routes/orgs/get-organization'
+import { getOrganizations } from './routes/orgs/get-organizations'
 
 // Inicialização do servidor com Fastify e TypeProvider
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
@@ -63,15 +65,19 @@ app.register(fastifyCors, {
   origin: '*',
 })
 
-// Rotas
-app.register(CreateAccountRoute)
-app.register(AuthenticateWithPasswordRoute)
-app.register(GetProfileRoute)
+// Rotas - authorization
+app.register(createAccountRoute)
+app.register(authenticateWithPasswordRoute)
+app.register(getProfileRoute)
 app.register(requestPasswordRecover)
 app.register(resetPassword)
 app.register(authenticateWithGithub)
+
+// Rotas - organizations
 app.register(createOrganization)
 app.register(getMembership)
+app.register(getOrganization)
+app.register(getOrganizations)
 
 // Tratativa de erros
 // app.setErrorHandler((error: FastifyError, request, reply) => {

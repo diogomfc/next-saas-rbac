@@ -7,7 +7,7 @@ import { prisma } from '@/lib/prisma'
 
 import { BadRequestError } from '../_errors/bad-request-error'
 
-export async function GetProfileRoute(app: FastifyInstance) {
+export async function getProfileRoute(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)

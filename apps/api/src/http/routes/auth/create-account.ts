@@ -7,7 +7,7 @@ import { prisma } from '@/lib/prisma'
 
 import { BadRequestError } from '../_errors/bad-request-error'
 
-export async function CreateAccountRoute(app: FastifyInstance) {
+export async function createAccountRoute(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
     '/users',
     {

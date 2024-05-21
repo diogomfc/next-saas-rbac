@@ -8,7 +8,7 @@ import { prisma } from '@/lib/prisma'
 import { BadRequestError } from '../_errors/bad-request-error'
 import { UnauthorizedError } from '../_errors/unauthorized-error'
 
-export async function AuthenticateWithPasswordRoute(app: FastifyInstance) {
+export async function authenticateWithPasswordRoute(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
     '/sessions/password',
     {
