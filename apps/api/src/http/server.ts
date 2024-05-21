@@ -28,6 +28,7 @@ import { transferOrganization } from './routes/orgs/transfer-organization'
 import { updateOrganization } from './routes/orgs/update-organization'
 import { createProject } from './routes/projects/create-project'
 import { deleteProject } from './routes/projects/delete-project'
+import { getProject } from './routes/projects/get-project'
 
 // Inicialização do servidor com Fastify e TypeProvider
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
@@ -90,6 +91,7 @@ app.register(transferOrganization)
 // Rotas - projects
 app.register(createProject)
 app.register(deleteProject)
+app.register(getProject)
 
 // Tratativa de erros
 // app.setErrorHandler((error: FastifyError, request, reply) => {
