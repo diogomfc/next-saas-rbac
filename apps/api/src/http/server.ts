@@ -19,6 +19,7 @@ import { authenticateWithGithub } from './routes/auth/authenticate-with-github'
 import { AuthenticateWithPasswordRoute } from './routes/auth/authenticate-with-password'
 import { CreateAccountRoute } from './routes/auth/create-account'
 import { GetProfileRoute } from './routes/auth/get-profile'
+import { createOrganization } from './routes/orgs/create-organization'
 
 // Inicialização do servidor com Fastify e TypeProvider
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
@@ -68,6 +69,7 @@ app.register(GetProfileRoute)
 app.register(requestPasswordRecover)
 app.register(resetPassword)
 app.register(authenticateWithGithub)
+app.register(createOrganization)
 
 // Tratativa de erros
 // app.setErrorHandler((error: FastifyError, request, reply) => {
