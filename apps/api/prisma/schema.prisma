@@ -24,7 +24,7 @@ model User {
 
   tokens            Token[]
   accounts          Account[]
-  invates           Invate[]
+  invites           Invite[]
   member_on         Member[]
   owns_rganizations Organization[]
   owns_projects     Project[]
@@ -73,13 +73,14 @@ enum Role {
   BILLING
 }
 
-model Invate {
+model Invite {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now()) @map("created_at")
   email     String
+  role      Role
 
-  author User?   @relation(fields: [userId], references: [id])
-  userId String? @map("user_id")
+  author   User?   @relation(fields: [authorId], references: [id])
+  authorId String? @map("authorId")
 
   organization   Organization @relation(fields: [organizationId], references: [id])
   organizationId String       @map("organization_id")
@@ -88,7 +89,7 @@ model Invate {
   @@unique([email, organizationId])
   // index para garantir a busca mais rápida de convites por email
   @@index([email])
-  @@map("invates")
+  @@map("invites")
 }
 
 model Member {
@@ -120,7 +121,7 @@ model Organization {
   owner   User   @relation(fields: [ownerId], references: [id])
   ownerId String @map("owner_id")
 
-  invates  Invate[]
+  invites  Invite[]
   members  Member[]
   projects Project[]
 

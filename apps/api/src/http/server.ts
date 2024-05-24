@@ -19,6 +19,7 @@ import { authenticateWithGithub } from './routes/auth/authenticate-with-github'
 import { authenticateWithPasswordRoute } from './routes/auth/authenticate-with-password'
 import { createAccountRoute } from './routes/auth/create-account'
 import { getProfileRoute } from './routes/auth/get-profile'
+import { createInvite } from './routes/invites/create-invite'
 import { getMembers } from './routes/members/get-members'
 import { removeMember } from './routes/members/remove-member'
 import { updateMember } from './routes/members/update-member'
@@ -31,8 +32,8 @@ import { transferOrganization } from './routes/orgs/transfer-organization'
 import { updateOrganization } from './routes/orgs/update-organization'
 import { createProject } from './routes/projects/create-project'
 import { deleteProject } from './routes/projects/delete-project'
-import { getProjects } from './routes/projects/get-projecs'
 import { getProject } from './routes/projects/get-project'
+import { getProjects } from './routes/projects/get-projects'
 import { updateProject } from './routes/projects/update-project'
 
 // Inicialização do servidor com Fastify e TypeProvider
@@ -104,6 +105,9 @@ app.register(updateProject)
 app.register(getMembers)
 app.register(updateMember)
 app.register(removeMember)
+
+// Rotas - invites
+app.register(createInvite)
 
 // Tratativa de erros
 // app.setErrorHandler((error: FastifyError, request, reply) => {
