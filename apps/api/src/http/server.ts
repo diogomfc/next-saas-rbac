@@ -28,6 +28,7 @@ import { transferOrganization } from './routes/orgs/transfer-organization'
 import { updateOrganization } from './routes/orgs/update-organization'
 import { createProject } from './routes/projects/create-project'
 import { deleteProject } from './routes/projects/delete-project'
+import { getProjects } from './routes/projects/get-projecs'
 import { getProject } from './routes/projects/get-project'
 
 // Inicialização do servidor com Fastify e TypeProvider
@@ -92,6 +93,7 @@ app.register(transferOrganization)
 app.register(createProject)
 app.register(deleteProject)
 app.register(getProject)
+app.register(getProjects)
 
 // Tratativa de erros
 // app.setErrorHandler((error: FastifyError, request, reply) => {

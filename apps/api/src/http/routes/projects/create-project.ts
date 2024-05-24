@@ -13,14 +13,14 @@ export async function createProject(app: FastifyInstance) {
     .withTypeProvider<ZodTypeProvider>()
     .register(auth)
     .post(
-      '/organization/:slug/projects',
+      '/organization/:orgSlug/projects',
       {
         schema: {
           tags: ['projects'],
           summary: 'Create a new project',
           security: [{ bearerAuth: [] }],
           params: z.object({
-            slug: z.string(),
+            orgSlug: z.string(),
           }),
           body: z.object({
             name: z.string(),
@@ -34,12 +34,12 @@ export async function createProject(app: FastifyInstance) {
         },
       },
       async (request, reply) => {
-        const { slug } = request.params
+        const { orgSlug } = request.params
         const userId = await request.getCurrentUserId()
 
         // Retorna os dados da organização e a associação do usuário com a organização
         const { organization, membership } =
-          await request.getUserMembership(slug)
+          await request.getUserMembership(orgSlug)
 
         // Verificar permissões do usuário
         const { cannot } = getUserPermissions(userId, membership.role)
