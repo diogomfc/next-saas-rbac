@@ -19,6 +19,7 @@ import { authenticateWithGithub } from './routes/auth/authenticate-with-github'
 import { authenticateWithPasswordRoute } from './routes/auth/authenticate-with-password'
 import { createAccountRoute } from './routes/auth/create-account'
 import { getProfileRoute } from './routes/auth/get-profile'
+import { getMembers } from './routes/members/get-members'
 import { createOrganization } from './routes/orgs/create-organization'
 import { getMembership } from './routes/orgs/get-membership'
 import { getOrganization } from './routes/orgs/get-organization'
@@ -96,6 +97,9 @@ app.register(deleteProject)
 app.register(getProject)
 app.register(getProjects)
 app.register(updateProject)
+
+// Rotas - members
+app.register(getMembers)
 
 // Tratativa de erros
 // app.setErrorHandler((error: FastifyError, request, reply) => {
