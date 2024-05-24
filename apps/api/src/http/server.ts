@@ -20,6 +20,7 @@ import { authenticateWithPasswordRoute } from './routes/auth/authenticate-with-p
 import { createAccountRoute } from './routes/auth/create-account'
 import { getProfileRoute } from './routes/auth/get-profile'
 import { createInvite } from './routes/invites/create-invite'
+import { getInvite } from './routes/invites/get-invite'
 import { getMembers } from './routes/members/get-members'
 import { removeMember } from './routes/members/remove-member'
 import { updateMember } from './routes/members/update-member'
@@ -108,6 +109,7 @@ app.register(removeMember)
 
 // Rotas - invites
 app.register(createInvite)
+app.register(getInvite)
 
 // Tratativa de erros
 // app.setErrorHandler((error: FastifyError, request, reply) => {
