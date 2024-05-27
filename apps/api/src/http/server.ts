@@ -19,6 +19,7 @@ import { authenticateWithGithub } from './routes/auth/authenticate-with-github'
 import { authenticateWithPasswordRoute } from './routes/auth/authenticate-with-password'
 import { createAccountRoute } from './routes/auth/create-account'
 import { getProfileRoute } from './routes/auth/get-profile'
+import { acceptInvite } from './routes/invites/accept-invite'
 import { createInvite } from './routes/invites/create-invite'
 import { getInvite } from './routes/invites/get-invite'
 import { getInvites } from './routes/invites/get-invites'
@@ -112,6 +113,7 @@ app.register(removeMember)
 app.register(createInvite)
 app.register(getInvite)
 app.register(getInvites)
+app.register(acceptInvite)
 
 // Tratativa de erros
 // app.setErrorHandler((error: FastifyError, request, reply) => {
