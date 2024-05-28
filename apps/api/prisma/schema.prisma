@@ -39,11 +39,13 @@ enum TokenType {
 
 // model para reset de senha
 model Token {
-  id        String    @id @default(uuid())
+  id String @id @default(uuid())
+
   tokenType TokenType
   createdAt DateTime  @default(now()) @map("created_at")
-  user      User      @relation(fields: [userId], references: [id])
-  userId    String    @map("user_id")
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @map("user_id")
 
   @@map("tokens")
 }
@@ -56,11 +58,13 @@ enum AccountProvider {
 
 // model meios de authentication (git, google, etc)
 model Account {
-  id                String          @id @default(uuid())
+  id String @id @default(uuid())
+
   provider          AccountProvider
   providerAccountId String          @map("provider_account_id")
-  user              User            @relation(fields: [userId], references: [id])
-  userId            String          @map("user_id")
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @map("user_id")
 
   // Restrição exclusiva para garantir uma conta por usuário por provedor
   @@unique([provider, userId])
@@ -79,10 +83,10 @@ model Invite {
   email     String
   role      Role
 
-  author   User?   @relation(fields: [authorId], references: [id])
+  author   User?   @relation(fields: [authorId], references: [id], onDelete: SetNull)
   authorId String? @map("authorId")
 
-  organization   Organization @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId String       @map("organization_id")
 
   // Restrição exclusiva para garantir um convite por usuário com o mesmo email por organização
@@ -96,7 +100,7 @@ model Member {
   id   String @id @default(uuid())
   role Role   @default(MEMBER)
 
-  organization   Organization @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId String       @map("organization_id")
 
   user   User   @relation(fields: [userId], references: [id])
@@ -138,7 +142,7 @@ model Project {
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
-  organization   Organization @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId String       @map("organization_id")
 
   owner   User   @relation(fields: [ownerId], references: [id])
