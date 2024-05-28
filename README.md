@@ -25,40 +25,41 @@ Este projeto utiliza um monorepo para manter o back-end e o front-end juntos. O 
 
 ### Autenticação
 
-- [ ] Deve ser capaz de autenticar usando e-mail e senha;
-- [ ] Deve ser capaz de autenticar usando uma conta do Github;
-- [ ] Deve ser capaz de recuperar a senha usando e-mail;
+- [x] Deve ser capaz de autenticar usando e-mail e senha;
+- [x] Deve ser capaz de autenticar usando uma conta do Github;
+- [x] Deve ser capaz de recuperar a senha usando e-mail;
 - [x] Deve ser capaz de criar uma conta (e-mail, nome e senha);
 
 ### Organizações
 
-- [ ] Deve ser capaz de criar uma nova organização;
-- [ ] Deve ser capaz de obter as organizações às quais o usuário pertence;
-- [ ] Deve ser capaz de atualizar uma organização;
-- [ ] Deve ser capaz de encerrar uma organização;
-- [ ] Deve ser capaz de transferir a propriedade da organização;
+- [x] Deve ser capaz de criar uma nova organização;
+- [x] Deve ser capaz de obter as organizações às quais o usuário pertence;
+- [x] Deve ser capaz de atualizar uma organização;
+- [x] Deve ser capaz de encerrar uma organização;
+- [x] Deve ser capaz de transferir a propriedade da organização;
 
 ### Convites
 
-- [ ] Deve ser capaz de convidar um novo membro (e-mail, função);
-- [ ] Deve ser capaz de aceitar um convite;
-- [ ] Deve ser capaz de revogar um convite pendente;
+- [x] Deve ser capaz de convidar um novo membro (e-mail, função);
+- [x] Deve ser capaz de aceitar um convite;
+- [x] Deve ser capaz de rejeitar um convite;
+- [x] Deve ser capaz de revogar um convite pendente;
 
 ### Membros
 
-- [ ] Deve ser capaz de obter os membros da organização;
-- [ ] Deve ser capaz de atualizar a função de um membro;
+- [x] Deve ser capaz de obter os membros da organização;
+- [x] Deve ser capaz de atualizar a função de um membro;
 
 ### Projetos
 
-- [ ] Deve ser capaz de obter projetos dentro de uma organização;
-- [ ] Deve ser capaz de criar um novo projeto (nome, URL, descrição);
-- [ ] Deve ser capaz de atualizar um projeto (nome, URL, descrição);
-- [ ] Deve ser capaz de excluir um projeto;
+- [x] Deve ser capaz de obter projetos dentro de uma organização;
+- [x] Deve ser capaz de criar um novo projeto (nome, URL, descrição);
+- [x] Deve ser capaz de atualizar um projeto (nome, URL, descrição);
+- [x] Deve ser capaz de excluir um projeto;
 
 ### Cobrança
 
-- [ ] Deve ser capaz de obter detalhes de cobrança para a organização ($20 por projeto / $10 por membro excluindo a função de cobrança);
+- [x] Deve ser capaz de obter detalhes de cobrança para a organização ($20 por projeto / $10 por membro excluindo a função de cobrança);
 
 ## RBAC
 
