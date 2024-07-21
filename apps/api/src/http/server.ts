@@ -8,7 +8,7 @@ import {
   jsonSchemaTransform,
   serializerCompiler,
   validatorCompiler,
-  ZodTypeProvider,
+  type ZodTypeProvider,
 } from 'fastify-type-provider-zod'
 
 import { errorHandler } from '@/http/error-handler'
